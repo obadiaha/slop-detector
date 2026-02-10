@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #050505;
+  --color-foreground: #fafafa;
+  --color-muted: #71717a;
+  --color-surface: #0f0f0f;
+  --color-surface-hover: #1a1a1a;
+  --color-border: #27272a;
+  --color-accent: #ff6b35;
+  --color-accent-muted: rgba(255, 107, 53, 0.15);
+  --color-score-great: #10b981;
+  --color-score-good: #22d3ee;
+  --color-score-mid: #f59e0b;
+  --color-score-bad: #f97316;
+  --color-score-awful: #ef4444;
+  --font-sans: "Geist", "Inter", system-ui, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom score ring animation */
+@keyframes score-fill {
+  from {
+    stroke-dashoffset: 314;
+  }
+}
+
+.score-ring {
+  animation: score-fill 1.5s ease-out forwards;
+}
+
+/* Scan loading animation */
+@keyframes scan-pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.scan-pulse {
+  animation: scan-pulse 1.5s ease-in-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #ff6b35, #ff8f65, #ffb899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle grid background */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Score bar animation */
+@keyframes bar-fill {
+  from {
+    width: 0%;
+  }
+}
+
+.score-bar-fill {
+  animation: bar-fill 1s ease-out forwards;
+}
