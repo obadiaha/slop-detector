@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #050505;
-  --color-foreground: #fafafa;
-  --color-muted: #71717a;
-  --color-surface: #0f0f0f;
-  --color-surface-hover: #1a1a1a;
-  --color-border: #27272a;
-  --color-accent: #ff6b35;
-  --color-accent-muted: rgba(255, 107, 53, 0.15);
-  --color-score-great: #10b981;
-  --color-score-good: #22d3ee;
-  --color-score-mid: #f59e0b;
-  --color-score-bad: #f97316;
-  --color-score-awful: #ef4444;
+  --color-background: #0a0a0f;
+  --color-foreground: #f4f4f5;
+  --color-muted: #8b8b96;
+  --color-surface: #13131a;
+  --color-surface-2: #1b1b24;
+  --color-surface-hover: #22222e;
+  --color-border: #2a2a36;
+  --color-accent: #e1306c; /* Instagram magenta */
+  --color-accent-2: #c13584;
+  --color-accent-3: #f77737; /* warm orange */
+  --color-accent-muted: rgba(225, 48, 108, 0.14);
+  --color-ok: #22c55e;
+  --color-warn: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #38bdf8;
   --font-sans: "Geist", "Inter", system-ui, sans-serif;
-  --font-mono: "Geist Mono", "JetBrains Mono", monospace;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
 }
 
 html {
@@ -30,54 +32,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom score ring animation */
-@keyframes score-fill {
-  from {
-    stroke-dashoffset: 314;
-  }
-}
-
-.score-ring {
-  animation: score-fill 1.5s ease-out forwards;
-}
-
-/* Scan loading animation */
-@keyframes scan-pulse {
-  0%, 100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-.scan-pulse {
-  animation: scan-pulse 1.5s ease-in-out infinite;
-}
-
-/* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #ff6b35, #ff8f65, #ffb899);
+  background: linear-gradient(135deg, #f77737, #e1306c, #c13584);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Subtle grid background */
-.grid-bg {
-  background-image: 
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size: 64px 64px;
+.gradient-bar {
+  background: linear-gradient(90deg, #f77737, #e1306c, #c13584);
 }
 
-/* Score bar animation */
-@keyframes bar-fill {
-  from {
-    width: 0%;
-  }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
-
-.score-bar-fill {
-  animation: bar-fill 1s ease-out forwards;
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 6px;
 }

@@ -1,18 +1,18 @@
 {
-  "name": "slop-detector",
+  "name": "instareach",
   "version": "0.1.0",
   "private": true,
+  "description": "API-first, HeyReach-style managed Instagram creator outreach platform",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
-    "@vercel/og": "^0.8.6",
     "next": "16.1.6",
-    "openai": "^6.19.0",
-    "playwright": "^1.58.2",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
@@ -25,6 +25,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.4"
   }
 }

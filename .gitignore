@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# runtime data store (JSON persistence — regenerated/seeded on first run)
+/data/db.json
+
 # next.js
 /.next/
 /out/

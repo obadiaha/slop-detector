@@ -1,29 +1,24 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Sidebar } from "@/components/Sidebar";
 
 export const metadata: Metadata = {
-  title: "Slop Detector — Is Your Website AI Slop?",
+  title: "InstaReach — Managed Instagram Creator Outreach",
   description:
-    "Paste a URL and get an instant AI slop score. Detect generic AI-generated design patterns, copy clichés, and template fatigue.",
-  openGraph: {
-    title: "Slop Detector — Is Your Website AI Slop?",
-    description:
-      "Paste a URL and get an instant AI slop score. Detect generic AI-generated design patterns, copy clichés, and template fatigue.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-  },
+    "API-first, HeyReach-style Instagram DM outreach. Submit targets and a message; the platform handles sending, dedup, rate limits, replies, and reporting.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        <div className="flex min-h-screen">
+          <Sidebar />
+          <main className="flex-1 min-w-0 px-6 py-8 md:px-10">{children}</main>
+        </div>
+      </body>
     </html>
   );
 }
