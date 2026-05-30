@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { authenticate, AuthError, type AuthContext } from "./auth";
-import { ensureSeeded } from "./seed";
+import { loadDb, flushDb } from "./db";
 
 // ---------------------------------------------------------------------------
 // API helpers — consistent auth, errors, and JSON shape for v1 routes.
@@ -25,7 +25,7 @@ export function withAuth(
     req: Request,
     ctx: { params?: Promise<Record<string, string>> },
   ): Promise<Response> => {
-    ensureSeeded();
+    await loadDb();
     try {
       const auth = authenticate(req);
       const params = (await ctx.params) ?? {};
@@ -35,6 +35,8 @@ export function withAuth(
       if (e instanceof SyntaxError) return err(400, "Invalid JSON body.");
       console.error("API error:", e);
       return err(500, (e as Error).message || "Internal error");
+    } finally {
+      await flushDb();
     }
   };
 }

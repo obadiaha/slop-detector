@@ -6,8 +6,8 @@ import { addTemplateAction } from "@/app/actions";
 
 export const dynamic = "force-dynamic";
 
-export default function TemplatesPage() {
-  const client = getActiveClient();
+export default async function TemplatesPage() {
+  const client = await getActiveClient();
   const templates = store.listTemplates(client.id);
 
   const input =

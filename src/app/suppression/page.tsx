@@ -5,8 +5,8 @@ import { addSuppressionAction } from "@/app/actions";
 
 export const dynamic = "force-dynamic";
 
-export default function SuppressionPage() {
-  const client = getActiveClient();
+export default async function SuppressionPage() {
+  const client = await getActiveClient();
   const suppressions = store.listSuppressions(client.id);
 
   return (

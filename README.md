@@ -30,6 +30,48 @@ a development API key, sender accounts, two campaigns, and a suppression entry.
 
 ---
 
+## Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/obadiaha/slop-detector/tree/claude/instagram-creator-outreach-6J6ZA)
+
+Or from the CLI:
+
+```bash
+npm i -g vercel
+vercel link          # connect to a Vercel project
+vercel --prod        # deploy
+```
+
+### Durable storage (important)
+
+Vercel's serverless filesystem is ephemeral, so the local file store won't
+persist there. The data layer auto-detects a **Vercel KV / Upstash Redis**
+backend and uses it when these env vars are present (set them in the Vercel
+project → Settings → Environment Variables):
+
+```
+KV_REST_API_URL=https://<your>.upstash.io
+KV_REST_API_TOKEN=<token>
+# (UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN are also accepted)
+```
+
+Add a KV store with one click via **Vercel Dashboard → Storage → KV (Upstash)**;
+Vercel injects those vars automatically. With no KV configured, the app still
+runs but storage is in-memory and resets on cold start (fine for a quick demo,
+flagged in the Settings page).
+
+Other optional env vars:
+
+```
+INSTAREACH_WEBHOOK_SECRET=whsec_…   # HMAC secret for webhook signatures
+INSTAREACH_DRIVER=simulation        # 'real' selects the (stubbed) prod driver
+INSTAREACH_SEED=false               # skip demo seed data on a clean deploy
+```
+
+The `/api/health` endpoint reports the active driver and storage backend.
+
+---
+
 ## The 60-second workflow
 
 Exactly the experience described in the RFP:
@@ -196,11 +238,12 @@ tests/                 vitest suite (engine, manager, compliance, templating, we
 
 ## Known limitations
 
-- Persistence is a single JSON file (fine for the MVP/pilot; swap for a real DB
-  behind `db.ts`). It is process-local and not concurrency-safe across
-  instances.
+- Persistence stores the whole DB as a single snapshot (JSON file locally, KV
+  on serverless). It's ample for a pilot but not optimized for high-concurrency
+  cross-instance writes — swap in a row-oriented store behind `db.ts` for scale.
 - The execution engine runs in-process via the `/start` endpoint; production
-  would move it to a durable background worker/queue.
+  would move it to a durable background worker/queue (the seam is ready — the
+  endpoint just calls `processCampaign`).
 - Delivery is simulated — adopting the product for real campaigns requires a
   production `SenderDriver`.
 

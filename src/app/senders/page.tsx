@@ -6,8 +6,8 @@ import { addSenderAction } from "@/app/actions";
 
 export const dynamic = "force-dynamic";
 
-export default function SendersPage() {
-  const client = getActiveClient();
+export default async function SendersPage() {
+  const client = await getActiveClient();
   const senders = store.listSenders(client.id);
   const healthy = senders.filter((s) => s.status === "active" || s.status === "warming").length;
   const capacity = senders

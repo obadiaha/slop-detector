@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "functions": {
+    "src/app/api/v1/campaigns/[id]/start/route.ts": { "maxDuration": 60 },
+    "src/app/api/v1/campaigns/[id]/poll-replies/route.ts": { "maxDuration": 60 }
+  }
+}

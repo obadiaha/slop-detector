@@ -1,4 +1,4 @@
-import { read, replaceAll } from "./db";
+import { replaceAll } from "./db";
 import { hashKey } from "./auth";
 import type { Database, SenderAccount, Campaign, Target } from "./types";
 
@@ -213,9 +213,4 @@ export function seed(): void {
   };
 
   replaceAll(db);
-}
-
-/** Seed only when the database is empty. */
-export function ensureSeeded(): void {
-  if (read().clients.length === 0) seed();
 }

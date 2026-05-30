@@ -8,8 +8,8 @@ export const dynamic = "force-dynamic";
 
 const pct = (n: number) => `${Math.round(n * 100)}%`;
 
-export default function DashboardPage() {
-  const client = getActiveClient();
+export default async function DashboardPage() {
+  const client = await getActiveClient();
   const overview = clientOverview(client.id);
   const campaigns = store.listCampaigns(client.id);
   const activity = store.listActivity(client.id, 8);

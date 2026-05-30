@@ -2,14 +2,16 @@ import { getActiveClient } from "@/lib/session";
 import * as store from "@/lib/store";
 import { getDriver } from "@/lib/senders";
 import { DEMO_API_KEY } from "@/lib/seed";
+import { activeBackendName } from "@/lib/db";
 import { PageHeader, Card } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
-export default function SettingsPage() {
-  const client = getActiveClient();
+export default async function SettingsPage() {
+  const client = await getActiveClient();
   const keys = store.listApiKeys(client.id);
   const driver = getDriver().name;
+  const storage = activeBackendName();
 
   const curl = `curl -X POST http://localhost:3000/api/v1/campaigns \\
   -H "Authorization: Bearer ${DEMO_API_KEY}" \\
@@ -35,6 +37,15 @@ export default function SettingsPage() {
               ? "DMs are mocked end-to-end. Set INSTAREACH_DRIVER=real to use a production driver (see README)."
               : "Production driver active."}
           </p>
+          <div className="mt-4 flex items-center justify-between border-t border-[var(--color-border)] pt-3 text-sm">
+            <span className="text-[var(--color-muted)]">Storage backend</span>
+            <span className="font-mono capitalize">{storage}</span>
+          </div>
+          {storage === "memory" && (
+            <p className="mt-1 text-xs text-[var(--color-warn)]">
+              Ephemeral — data resets on cold start. Add Vercel KV / Upstash to persist.
+            </p>
+          )}
         </Card>
 
         <Card className="p-5 lg:col-span-2">

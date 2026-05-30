@@ -7,8 +7,8 @@ import { CampaignForm } from "@/components/CampaignForm";
 
 export const dynamic = "force-dynamic";
 
-export default function CampaignsPage() {
-  const client = getActiveClient();
+export default async function CampaignsPage() {
+  const client = await getActiveClient();
   const campaigns = store.listCampaigns(client.id);
 
   return (

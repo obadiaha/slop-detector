@@ -20,7 +20,7 @@ export default async function CampaignDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const client = getActiveClient();
+  const client = await getActiveClient();
   const campaign = store.getCampaign(id, client.id);
   if (!campaign) notFound();
 

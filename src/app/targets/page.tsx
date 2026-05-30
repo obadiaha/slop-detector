@@ -22,7 +22,7 @@ export default async function TargetsPage({
   searchParams: Promise<{ status?: string; q?: string }>;
 }) {
   const { status = "all", q = "" } = await searchParams;
-  const client = getActiveClient();
+  const client = await getActiveClient();
   const campaigns = new Map(store.listCampaigns(client.id).map((c) => [c.id, c.name]));
 
   let targets = read().targets.filter((t) => t.clientId === client.id);
